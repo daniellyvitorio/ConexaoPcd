@@ -5,11 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.List;
-
-import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "usuario")
@@ -29,8 +30,22 @@ public class Usuario {
     @Column(name = "senha", nullable = false, length = 256)
     private String senha;
 
-    @ManyToMany /*n para n */
+    @ManyToMany
+    @JoinTable(name = "usuario_nivel_acesso", joinColumns = @JoinColumn(name = "usuario_id"),
+        inverseJoinColumns = @JoinColumn(name = "nivel_acesso_id")
+        )
     private List<NivelAcesso > nivelAcesso;
+
+   @OneToMany(mappedBy = "usuario")
+   private List<Noticia> noticia;
+
+   public Usuario(List<NivelAcesso> nivelAcesso, List<Noticia> noticia) {
+    this.nivelAcesso = nivelAcesso;
+    this.noticia = noticia;
+}
+
+@OneToMany(mappedBy = "usuario")
+    private List<Acesso> acesso;
 
     public Long getId() {
         return this.id;
@@ -65,11 +80,28 @@ public class Usuario {
     }
 
     public List<NivelAcesso> getNivelAcesso() {
-        return this.nivelAcesso;
+        return nivelAcesso;
     }
 
     public void setNivelAcesso(List<NivelAcesso> nivelAcesso) {
         this.nivelAcesso = nivelAcesso;
     }
+
+    public List<Noticia> getNoticia() {
+        return noticia;
+    }
+
+    public void setNoticia(List<Noticia> noticia) {
+        this.noticia = noticia;
+    }
+
+    public List<Acesso> getAcesso() {
+        return acesso;
+    }
+
+    public void setAcesso(List<Acesso> acesso) {
+        this.acesso = acesso;
+    }
+
     
 }

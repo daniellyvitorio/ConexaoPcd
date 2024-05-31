@@ -10,22 +10,22 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "acesso")
-public class Acesso {
+@Table(name = "noticia")
+public class Noticia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "ip", nullable = false)
-    private String ip;
+    @Column(name = "img", nullable = false)
+    private String img;
 
-    @Column(name = "data_hora", nullable = false)
-    private String dataHora;
+    @Column(name = "descricao", nullable = false)
+    private String text;
 
     @ManyToOne
-    @JoinColumn(name="usuario_id", nullable = false)
+    @JoinColumn(name="usuario_id")
     private Usuario usuario;
 
 
@@ -37,21 +37,14 @@ public class Acesso {
         this.id = id;
     }
 
-    public String getIp() {
-        return this.ip;
+    public String getImg() {
+        return this.img;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
+    public void setImg(String img) {
+        this.img = img;
     }
 
-    public String getDataHora() {
-        return this.dataHora;
-    }
-
-    public void setDataHora(String dataHora) {
-        this.dataHora = dataHora;
-    }
 
     public Usuario getUsuario() {
         return this.usuario;
@@ -60,4 +53,5 @@ public class Acesso {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
 }
