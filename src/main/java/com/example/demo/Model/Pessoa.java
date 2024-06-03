@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,8 +27,8 @@ public class Pessoa {
     @ManyToMany(mappedBy = "pessoas")
     private List<Deficiencia> deficiencia;
 
-    @ManyToMany(mappedBy = "pessoas")
-    private List<Endereco> endereco;
+    @ManyToOne
+    private Endereco endereco;
 
 
     public Long getId() {
@@ -51,5 +52,13 @@ public class Pessoa {
 
     public void setDeficiencia(List<Deficiencia> deficiencia) {
         this.deficiencia = deficiencia;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 }

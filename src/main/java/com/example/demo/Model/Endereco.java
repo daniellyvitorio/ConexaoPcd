@@ -1,15 +1,11 @@
 package com.example.demo.Model;
 
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -30,14 +26,6 @@ public class Endereco {
 
     @Column(name = "cep", nullable = false)
     private Double cep;
-
-    @ManyToMany
-    @JoinTable(
-        name = "pessoa_endereco",
-        joinColumns = @JoinColumn(name = "endereco_id"),
-        inverseJoinColumns = @JoinColumn(name = "pessoa_id")
-    )
-    private List<Pessoa> pessoas;
 
     @ManyToOne
     @JoinColumn(name = "bairro_id", nullable = false)
@@ -73,14 +61,6 @@ public class Endereco {
 
     public void setCep(Double cep) {
         this.cep = cep;
-    }
-
-    public List<Pessoa> getPessoa() {
-        return getPessoa();
-    }
-
-    public void setPessoas(List<Pessoa> pessoas) {
-        this.pessoas = pessoas;
     }
 
     public Bairro getBairro() {
