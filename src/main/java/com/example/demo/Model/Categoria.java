@@ -6,8 +6,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "categoria")
 public class Categoria {
 
@@ -17,7 +21,11 @@ public class Categoria {
     private Long id;
 
     @Column(name = "nome", nullable = false)
-    private String nome;
+    private String tipo;
+
+    public Categoria(String tipo){
+        this.tipo = tipo;
+    }
 
     public Long getId() {
         return this.id;
@@ -28,11 +36,11 @@ public class Categoria {
     }
 
     public String getNome() {
-        return this.nome;
+        return this.tipo;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.tipo = nome;
     }
 
 }

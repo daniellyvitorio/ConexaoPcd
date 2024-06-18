@@ -7,11 +7,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "bairro")
 public class Bairro {
@@ -24,12 +26,12 @@ public class Bairro {
     @Column(name = "nome", nullable = false)
     private String nome;
 
+    public Bairro(String nome){
+        this.nome = nome;
+    }
+
     @OneToMany(mappedBy = "bairro")
     private List<Endereco> endereco;
-
-    @ManyToOne
-    @JoinColumn(name = "cidade_id", nullable = false)
-    private Cidade cidade;
 
     public Long getId() {
         return id;
@@ -53,13 +55,5 @@ public class Bairro {
 
     public void setEndereco(List<Endereco> endereco) {
         this.endereco = endereco;
-    }
-
-    public Cidade getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(Cidade cidade) {
-        this.cidade = cidade;
     }
 }

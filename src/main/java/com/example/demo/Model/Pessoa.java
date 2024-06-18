@@ -1,16 +1,16 @@
 package com.example.demo.Model;
 
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "pessoa")
 public class Pessoa {
@@ -21,44 +21,7 @@ public class Pessoa {
     private Long id;
 
 
-    @Column(name = "nome", nullable = false)
+    @Column(name = "nome", nullable = false, length = 100, unique= false)
     private String nome;
 
-    @ManyToMany(mappedBy = "pessoas")
-    private List<Deficiencia> deficiencia;
-
-    @ManyToOne
-    private Endereco endereco;
-
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return this.nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    public List<Deficiencia> getDeficiencia() {
-        return deficiencia;
-    }
-
-    public void setDeficiencia(List<Deficiencia> deficiencia) {
-        this.deficiencia = deficiencia;
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
 }
