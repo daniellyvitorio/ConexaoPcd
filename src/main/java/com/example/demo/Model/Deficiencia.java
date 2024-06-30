@@ -1,60 +1,71 @@
 package com.example.demo.Model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.io.Serializable;
 
 @Entity
-@Table(
-        name = "deficiencia"
-)
-public class Deficiencia implements Serializable {
+@Table(name = "deficiencia")
+public class Deficiencia {
+
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    @Column(
-            nullable = false
-    )
+
+    @Column(name = "nome", nullable = false)
     private String nome;
+
     @ManyToOne
-    @JoinColumn(
-            name = "categoria_id"
-    )
+    @JoinColumn(name="categoria_id", nullable = false)
     private Categoria categoria;
 
-    public Deficiencia() {
-    }
+    @ManyToMany
+    @JoinTable(
+        name = "pessoa_deficiencia",
+        joinColumns = @JoinColumn(name = "deficiencia_id"),
+        inverseJoinColumns = @JoinColumn(name = "pessoa_id")
+    )
+    private List<Pessoa> pessoas;
 
     public Long getId() {
         return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
         return this.nome;
     }
 
-    public Categoria getCategoria() {
-        return this.categoria;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public void setNome(final String nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public void setCategoria(final Categoria categoria) {
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
+    public List<Pessoa> getPessoa() {
+        return getPessoa();
+    }
+
+    public void setPessoas(List<Pessoa> pessoas) {
+        this.pessoas = pessoas;
+    }
 }

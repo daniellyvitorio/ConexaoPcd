@@ -1,74 +1,74 @@
 package com.example.demo.Model;
 
-import jakarta.persistence.*;
-
-import java.io.Serializable;
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(
-        name = "endereco"
-)
-public class Endereco implements Serializable {
+@Table(name = "endereco")
+public class Endereco {
+
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    @Column(
-            nullable = false
-    )
-    private String logradouro;
-    @Column(
-            nullable = false
-    )
-    private String cep;
-    @Column(
-            nullable = true
-    )
-    private int numero;
+
+    @Column(name = "logadouro", nullable = false)
+    private String logadouro;
+
+    @Column(name = "numero", nullable = false)
+    private Double  numero;
+
+    @Column(name = "cep", nullable = false)
+    private Double cep;
 
     @ManyToOne
+    @JoinColumn(name = "bairro_id", nullable = false)
     private Bairro bairro;
- ;
-
-    public Endereco() {
-    }
 
     public Long getId() {
         return this.id;
     }
 
-    public String getLogradouro() {
-        return this.logradouro;
-    }
-
-    public String getCep() {
-        return this.cep;
-    }
-
-    public int getNumero() {
-        return this.numero;
-    }
-
-
-
-    public void setId(final Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public void setLogradouro(final String logradouro) {
-        this.logradouro = logradouro;
+    public String getLogadouro() {
+        return this.logadouro;
     }
 
-    public void setCep(final String cep) {
-        this.cep = cep;
+    public void setLogadouro(String logadouro) {
+        this.logadouro = logadouro;
     }
 
-    public void setNumero(final int numero) {
+    public Double getNumero() {
+        return this.numero;
+    }
+
+    public void setNumero(Double numero) {
         this.numero = numero;
     }
 
+    public Double getCep() {
+        return this.cep;
+    }
 
+    public void setCep(Double cep) {
+        this.cep = cep;
+    }
+
+    public Bairro getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(Bairro bairro) {
+        this.bairro = bairro;
+    }
 
 }

@@ -7,13 +7,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
 @Table(name = "pessoa")
 public class Pessoa {
 
@@ -25,10 +23,5 @@ public class Pessoa {
 
     @Column(name = "nome", nullable = false, length = 100, unique= false)
     private String nome;
-
-    public Pessoa(String nome){
-        this.nome = nome;
-    }
-
 
 }

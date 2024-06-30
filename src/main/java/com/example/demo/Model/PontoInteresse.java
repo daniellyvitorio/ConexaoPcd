@@ -8,74 +8,66 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.io.Serializable;
 
 @Entity
-@Table(
-        name = "ponto_interesse"
-)
-public class PontoInteresse implements Serializable {
+@Table(name = "ponto_interesse")
+public class PontoInteresse {
+
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "nome", nullable = false)
     private String nome;
-    
-    @Column(nullable = false)
-    private String tipo;
-    @Column(
-            nullable = true
-    )
-    private String contato;
+
+    @Column(name = "tipo", nullable = false)
+    private String  tipo;
+
+    @Column(name = "contato")
+    private Double contato;
+
     @ManyToOne
-    @JoinColumn(
-            name = "endereco_id"
-    )
+    @JoinColumn(name="endereco_id", nullable = false)
     private Endereco endereco;
 
-    public PontoInteresse() {
-    }
-
     public Long getId() {
-        return this.id;
+        return id;
     }
 
-    public String getNome() {
-        return this.nome;
-    }
-
-    public String getTipo() {
-        return this.tipo;
-    }
-
-    public String getContato() {
-        return this.contato;
-    }
-
-    public Endereco getEndereco() {
-        return this.endereco;
-    }
-
-    public void setId(final Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public void setNome(final String nome) {
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public void setTipo(final String tipo) {
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
-    public void setContato(final String contato) {
+    public Double getContato() {
+        return contato;
+    }
+
+    public void setContato(Double contato) {
         this.contato = contato;
     }
 
-    public void setEndereco(final Endereco endereco) {
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
 
