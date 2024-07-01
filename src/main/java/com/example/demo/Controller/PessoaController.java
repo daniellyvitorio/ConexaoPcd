@@ -13,13 +13,6 @@ public class PessoaController {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    @GetMapping("/pessoa")
-    public String index(){
-
-        return "pessoa/listar";
-    }
-
-
     @GetMapping("/pessoa/create")
     public String create(){
         return "pessoa/create";
