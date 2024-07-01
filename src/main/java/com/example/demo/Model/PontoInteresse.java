@@ -8,66 +8,74 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "ponto_interesse")
-public class PontoInteresse {
-
+@Table(
+        name = "ponto_interesse"
+)
+public class PontoInteresse implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     private Long id;
 
-    @Column(name = "nome", nullable = false)
+    @Column(nullable = false)
     private String nome;
-
-    @Column(name = "tipo", nullable = false)
-    private String  tipo;
-
-    @Column(name = "contato")
-    private Double contato;
-
+    
+    @Column(nullable = false)
+    private String tipo;
+    @Column(
+            nullable = true
+    )
+    private String contato;
     @ManyToOne
-    @JoinColumn(name="endereco_id", nullable = false)
+    @JoinColumn(
+            name = "endereco_id"
+    )
     private Endereco endereco;
 
-    public Long getId() {
-        return id;
+    public PontoInteresse() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return this.id;
     }
 
     public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+        return this.nome;
     }
 
     public String getTipo() {
-        return tipo;
+        return this.tipo;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public Double getContato() {
-        return contato;
-    }
-
-    public void setContato(Double contato) {
-        this.contato = contato;
+    public String getContato() {
+        return this.contato;
     }
 
     public Endereco getEndereco() {
-        return endereco;
+        return this.endereco;
     }
 
-    public void setEndereco(Endereco endereco) {
+    public void setId(final Long id) {
+        this.id = id;
+    }
+
+    public void setNome(final String nome) {
+        this.nome = nome;
+    }
+
+    public void setTipo(final String tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setContato(final String contato) {
+        this.contato = contato;
+    }
+
+    public void setEndereco(final Endereco endereco) {
         this.endereco = endereco;
     }
 

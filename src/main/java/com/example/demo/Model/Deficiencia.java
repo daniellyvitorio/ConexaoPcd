@@ -1,71 +1,60 @@
 package com.example.demo.Model;
 
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "deficiencia")
-public class Deficiencia {
-
+@Table(
+        name = "deficiencia"
+)
+public class Deficiencia implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     private Long id;
-
-    @Column(name = "nome", nullable = false)
+    @Column(
+            nullable = false
+    )
     private String nome;
-
     @ManyToOne
-    @JoinColumn(name="categoria_id", nullable = false)
+    @JoinColumn(
+            name = "categoria_id"
+    )
     private Categoria categoria;
 
-    @ManyToMany
-    @JoinTable(
-        name = "pessoa_deficiencia",
-        joinColumns = @JoinColumn(name = "deficiencia_id"),
-        inverseJoinColumns = @JoinColumn(name = "pessoa_id")
-    )
-    private List<Pessoa> pessoas;
+    public Deficiencia() {
+    }
 
     public Long getId() {
         return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {
         return this.nome;
     }
 
-    public void setNome(String nome) {
+    public Categoria getCategoria() {
+        return this.categoria;
+    }
+
+    public void setId(final Long id) {
+        this.id = id;
+    }
+
+    public void setNome(final String nome) {
         this.nome = nome;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
+    public void setCategoria(final Categoria categoria) {
         this.categoria = categoria;
     }
 
-    public List<Pessoa> getPessoa() {
-        return getPessoa();
-    }
-
-    public void setPessoas(List<Pessoa> pessoas) {
-        this.pessoas = pessoas;
-    }
 }
