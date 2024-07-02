@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,23 @@ public class PessoaController {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    @GetMapping("/pessoa")
+    public String index(Model model){
+
+        List<Pessoa> pessoas = pessoaRepository.findAll();
+
+        model.addAttribute("pessoas", pessoas);
+        
+
+        return "pessoa/listar";
+    }
+
     @GetMapping("/pessoa/create")
     public String create(Model model) {
         model.addAttribute("pessoaForm", new PessoaForm());
-
         return "pessoa/create";
     }
+
     
     @PostMapping("/pessoa/create")
     public String create(@Validated PessoaForm pessoaForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
@@ -47,7 +59,7 @@ public class PessoaController {
         redirectAttributes.addFlashAttribute("mensagemSucesso", "Salvo com sucesso!");
         pessoaRepository.save(pessoaForm.toEntity());
         
-        return "redirect:/pessoa/create";
+        return "redirect:/pessoa";
     }
 
     @GetMapping("/pessoa/update/{id}")
