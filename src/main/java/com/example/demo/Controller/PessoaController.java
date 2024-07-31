@@ -20,6 +20,7 @@ import com.example.demo.Repository.PessoaRepository;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -31,9 +32,11 @@ public class PessoaController {
     private PessoaRepository pessoaRepository;
 
     @GetMapping("/pessoa")
-    public String index(Model model){
+    public String index(Model model, @RequestParam("display") Optional<String> display){
+        String finalDisplay = display.orElse("true");
 
-        List<Pessoa> pessoas = pessoaRepository.findByAtivo(true);
+
+        List<Pessoa> pessoas = pessoaRepository.findByAtivo(Boolean.valueOf(finalDisplay));
 
         model.addAttribute("pessoas", pessoas);
         
