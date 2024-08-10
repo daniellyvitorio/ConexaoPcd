@@ -16,10 +16,9 @@ import java.io.Serializable;
 )
 public class Deficiencia implements Serializable {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     @Column(
             nullable = false
     )

@@ -13,6 +13,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,6 +46,11 @@ public class Pessoa {
     @ColumnDefault("2")
     @Enumerated(EnumType.ORDINAL)
     private Sexo sexo = Sexo.NAO_INFORMADO;
+
+    @ManyToOne
+    @JoinColumn(name= "deficiencia_id")
+    private Deficiencia deficiencia;
+
 
     public Pessoa(String nome, LocalDate nascimento, Sexo sexo){
         this.nome = nome;

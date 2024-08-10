@@ -15,11 +15,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.Form.Pessoa.PessoaForm;
 import com.example.demo.Model.Pessoa;
+import com.example.demo.Repository.DeficienciaRepository;
 import com.example.demo.Repository.PessoaRepository;
 
 import jakarta.validation.Valid;
-
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -30,6 +29,9 @@ public class PessoaController {
 
     @Autowired
     private PessoaRepository pessoaRepository;
+
+    @Autowired
+    private DeficienciaRepository deficienciaRepository;
 
     @GetMapping("/pessoa")
     public String index(Model model, @RequestParam("display") Optional<String> display){
@@ -46,13 +48,20 @@ public class PessoaController {
 
     @GetMapping("/pessoa/create")
     public String create(Model model) {
-        model.addAttribute("pessoaForm", new PessoaForm());
+        PessoaForm pessoaForm = new PessoaForm();
+        pessoaForm.setDeficiencias(deficienciaRepository);
+
+        model.addAttribute("pessoaForm",pessoaForm);
+
         return "pessoa/create";
     }
 
     
     @PostMapping("/pessoa/create")
     public String create(@Validated PessoaForm pessoaForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        pessoaForm.setDeficiencias(deficienciaRepository);
+
+        model.addAttribute("pessoaForm",pessoaForm);
         
         if(bindingResult.hasErrors()){
             ((RedirectAttributes) model).addAttribute("errors", bindingResult.getAllErrors());
