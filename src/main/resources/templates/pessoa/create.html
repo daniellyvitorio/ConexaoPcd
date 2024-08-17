@@ -43,11 +43,23 @@
                                     <label for="cep" class="form-label">CEP:</label>
                                     <input id="cep" type="text" class="form-control" placeholder="99999-999" th:field="*{cep}">
                                 </div>
-
-                                <input id="uf">
-                                <input id="cidade">
-                                <input id="bairro">
-                                <input id="logadouro">
+                                <div class="mb-3 col-md-2">
+                                    <label for="uf" class="form-label">UF</label>
+                                    <input id="uf" class="form-control" th:field="*{uf}">
+                                </div>
+                                <div class="mb-3 col-md-2">
+                                    <label for="cidade" class="form-label">Cidade</label>
+                                    <input id="cidade" class="form-control" th:field="*{cidade}">
+                                </div>
+                                <div class="mb-3 col-md-2">
+                                    <label for="bairro" class="form-label">Bairro</label>
+                                    <input id="bairro" class="form-control" th:field="*{cidade}">
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="Logradouro" class="form-label">Logradouro</label>
+                                    <input id="logradouro" class="form-control" th:field="*{cidade}">
+                                </div>
+                                
                             </div>                        
                         </div>
                         <div class="card-footer d-flex justify-content-between">
@@ -60,7 +72,6 @@
             <script>
                 $("#cep").inputmask("99999-999")
                 .on('change', function(){
-                    alert("Samuel é muito legal");
                     let cep = $("#cep").val();
                     cep.replace("-", "");
 
@@ -69,7 +80,11 @@
                         type: "get",
                         url: "https://viacep.com.br/ws/" + cep + "/json",
                         success: function(response){
-                            console.log(response);
+                            
+                            document.getElementById("bairro").value = response['bairro'];
+                            $("#logradouro").val(response['logradouro']);
+                            $("#cidade").val(response['localidade']);
+                            $("#uf").val(response['uf'])
                         }
                     });
                 });
