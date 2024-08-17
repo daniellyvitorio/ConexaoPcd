@@ -15,7 +15,7 @@
                                     <input type="text" id="nome" placeholder="Ex.: João dos Exemplos" th:field="*{nome}" class="form-control">
                                     <div th:if="${errors != null && #fields.hasErrors('nome')}" th:errors="*{nome}"></div>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 col-md-3">
                                     <label for="nascimento" class="form-label">Nascimento:</label>
                                     <input type="date" id="nascimento" th:field="*{nascimento}" class="form-control">
                                     <div th:if="${errors != null && #fields.hasErrors('nascimento')}" th:errors="*{nascimento}"></div>
@@ -39,6 +39,15 @@
                                         </option>
                                     </select>
                                 </div>
+                                <div class="mb-3 col-md-3">
+                                    <label for="cep" class="form-label">CEP:</label>
+                                    <input id="cep" type="text" class="form-control" placeholder="99999-999" th:field="*{cep}">
+                                </div>
+
+                                <input id="uf">
+                                <input id="cidade">
+                                <input id="bairro">
+                                <input id="logadouro">
                             </div>                        
                         </div>
                         <div class="card-footer d-flex justify-content-between">
@@ -48,5 +57,22 @@
                     </div>
                 </div>    
             </form>
+            <script>
+                $("#cep").inputmask("99999-999")
+                .on('change', function(){
+                    alert("Samuel é muito legal");
+                    let cep = $("#cep").val();
+                    cep.replace("-", "");
+
+                    $.ajax({
+                        dataType: "json",
+                        type: "get",
+                        url: "https://viacep.com.br/ws/" + cep + "/json",
+                        success: function(response){
+                            console.log(response);
+                        }
+                    });
+                });
+            </script>
     </body>
 </html>
