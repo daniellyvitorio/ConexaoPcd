@@ -43,21 +43,21 @@
                                     <label for="cep" class="form-label">CEP:</label>
                                     <input id="cep" type="text" class="form-control" placeholder="99999-999" th:field="*{cep}">
                                 </div>
-                                <div class="mb-3 col-md-2">
+                                <div class="mb-2 col-md-2">
                                     <label for="uf" class="form-label">UF</label>
-                                    <input id="uf" class="form-control" th:field="*{uf}">
+                                    <input id="uf" readonly class="form-control" th:field="*{uf}">
                                 </div>
                                 <div class="mb-3 col-md-2">
                                     <label for="cidade" class="form-label">Cidade</label>
-                                    <input id="cidade" class="form-control" th:field="*{cidade}">
+                                    <input id="cidade" readonly class="form-control" th:field="*{cidade}">
                                 </div>
                                 <div class="mb-3 col-md-2">
                                     <label for="bairro" class="form-label">Bairro</label>
-                                    <input id="bairro" class="form-control" th:field="*{cidade}">
+                                    <input id="bairro" readonly class="form-control" th:field="*{cidade}">
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="Logradouro" class="form-label">Logradouro</label>
-                                    <input id="logradouro" class="form-control" th:field="*{cidade}">
+                                    <input id="logradouro" readonly class="form-control" th:field="*{cidade}">
                                 </div>
                                 
                             </div>                        
@@ -80,12 +80,25 @@
                         type: "get",
                         url: "https://viacep.com.br/ws/" + cep + "/json",
                         success: function(response){
-                            
-                            document.getElementById("bairro").value = response['bairro'];
-                            $("#logradouro").val(response['logradouro']);
+                        if(!response['erro']){
+                            if(response['bairro'] == ""){
+                                $("#bairro").attr("readonly", false);
+                            }else{
+                                $("#bairro").attr("readonly", true);
+                                document.getElementById("bairro").value = response['bairro'];
+                            }
+
+                            if(response['logradouro'] == ""){
+                                $("#logradouro").attr("readonly", false);
+                            }else{
+                                $("#logradouro").attr("readonly", true);
+                                document.getElementById("logradouro").value = response['logradouro'];
+                                $("#logradouro").val(response['logradouro']);
+                            }
                             $("#cidade").val(response['localidade']);
                             $("#uf").val(response['uf'])
                         }
+                        } 
                     });
                 });
             </script>

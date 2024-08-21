@@ -7,35 +7,35 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "bairro")
-public class Bairro {
-   
+@Table(name= "estado")
+
+public class Estado {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name= "id")
     private Long id;
 
-    @Column(name = "nome", nullable = false, length = 100)
+    @Column(name= "nome", nullable = false, length = 100)
     private String nome;
 
-    @Column(name = "ativo", nullable = false)
-    @ColumnDefault("true")
-    private boolean ativo = true;
+    @Column(name= "sigla", nullable = false, length = 2)
+    private String sigla;
 
-    @ManyToOne
-    @JoinColumn(name = "cidade_id")
-    private Cidade cidade;
+    @Column(name= "ativo", nullable = false)
+    @ColumnDefault("true")
+    private boolean ativo;
+
 }

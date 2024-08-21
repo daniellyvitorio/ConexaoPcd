@@ -2,7 +2,6 @@ package com.example.demo.Controller;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,12 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.example.demo.Form.Pessoa.PessoaForm;
+import com.example.demo.Model.Deficiencia;
 import com.example.demo.Model.Pessoa;
 import com.example.demo.Repository.DeficienciaRepository;
 import com.example.demo.Repository.PessoaRepository;
-
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -49,7 +47,9 @@ public class PessoaController {
     @GetMapping("/pessoa/create")
     public String create(Model model) {
         PessoaForm pessoaForm = new PessoaForm();
-        pessoaForm.setDeficiencias(deficienciaRepository);
+
+        List<Deficiencia> listaDeficiencias = deficienciaRepository.findAll();
+        pessoaForm.setListDeficiencias(listaDeficiencias);
 
         model.addAttribute("pessoaForm",pessoaForm);
 
@@ -59,7 +59,10 @@ public class PessoaController {
     
     @PostMapping("/pessoa/create")
     public String create(@Validated PessoaForm pessoaForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
-        pessoaForm.setDeficiencias(deficienciaRepository);
+        
+        List<Deficiencia> listaDeficiencias = deficienciaRepository.findAll();
+        pessoaForm.setListDeficiencias(listaDeficiencias);
+
 
         model.addAttribute("pessoaForm",pessoaForm);
         
@@ -69,7 +72,8 @@ public class PessoaController {
         }
 
         redirectAttributes.addFlashAttribute("successMessage", "Salvo com sucesso!");
-        pessoaRepository.save(pessoaForm.toEntity());
+        
+        /*pessoaRepository.save(pessoaForm.toEntity());*/
         
         return "redirect:/pessoa";
     }
@@ -115,11 +119,11 @@ public class PessoaController {
             return "/pessoa/update";
         }
 
-        Pessoa pessoa = pessoaForm.toEntity();
-        pessoa.setId(id);
+        /*Pessoa pessoa = pessoaForm.toEntity();
+        pessoa.setId(id);*/
 
-        redirectAttributes.addFlashAttribute("successMessage","Alterado com sucesso");
-        this.pessoaRepository.save(pessoa);
+        /*redirectAttributes.addFlashAttribute("successMessage","Alterado com sucesso");
+        this.pessoaRepository.save(pessoa);*/
 
         return "redirect:/pessoa";
     }
