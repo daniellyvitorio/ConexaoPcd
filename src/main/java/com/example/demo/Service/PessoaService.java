@@ -4,9 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.example.demo.Enum.Sexo;
-import com.example.demo.Form.Pessoa.PessoaForm;
 import com.example.demo.Model.Pessoa;
 import com.example.demo.Repository.BairroRepository;
 import com.example.demo.Repository.CidadeRepository;

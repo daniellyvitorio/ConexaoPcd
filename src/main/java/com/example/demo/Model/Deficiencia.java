@@ -8,20 +8,27 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
+import org.hibernate.annotations.ColumnDefault;
+
+@Getter
+@Setter
 @Entity
-@Table(
-        name = "deficiencia"
-)
+@Table(name = "deficiencia")
 public class Deficiencia implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "ativo", nullable = false)
+    @ColumnDefault("true")
+    private boolean ativo = true;
     
-    @Column(
-            nullable = false
-    )
+    @Column(nullable = false)
     private String nome;
     @ManyToOne
     @JoinColumn(
