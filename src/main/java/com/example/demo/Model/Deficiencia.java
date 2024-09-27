@@ -1,5 +1,7 @@
 package com.example.demo.Model;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,59 +10,31 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serializable;
-
-import org.hibernate.annotations.ColumnDefault;
-
+@Entity
 @Getter
 @Setter
-@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "deficiencia")
-public class Deficiencia implements Serializable {
+public class Deficiencia {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String nome;
+
     @Column(name = "ativo", nullable = false)
     @ColumnDefault("true")
     private boolean ativo = true;
-    
-    @Column(nullable = false)
-    private String nome;
+
     @ManyToOne
-    @JoinColumn(
-            name = "categoria_id"
-    )
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
-
-    public Deficiencia() {
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public String getNome() {
-        return this.nome;
-    }
-
-    public Categoria getCategoria() {
-        return this.categoria;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public void setNome(final String nome) {
-        this.nome = nome;
-    }
-
-    public void setCategoria(final Categoria categoria) {
-        this.categoria = categoria;
-    }
-
 }

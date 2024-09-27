@@ -3,12 +3,11 @@ package com.example.demo.Enum;
 import lombok.Getter;
 
 @Getter
-
 public enum Sexo {
 
     FEMININO(0, 'F', "Feminino"),
-    MASCULINO(1, 'm', "Masculino"),
-    NAO_INFORMADO(2,'N',"Não informado");
+    MASCULINO(1, 'M', "Masculino"),
+    NAO_INFOMADO(2, 'N', "Não informado");
 
     private final int codigo;
     private final char abreviacao;
@@ -27,8 +26,7 @@ public enum Sexo {
             }
         }
 
-        //return Sexo.NAO_INFORMADO;
-        throw new IllegalArgumentException("Código Invalido: " + codigo);
+        // return Sexo.NAO_INFOMADO;
+        throw new IllegalArgumentException("Código Inválido: " + codigo);
     }
-
 }

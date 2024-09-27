@@ -1,63 +1,56 @@
 package com.example.demo.Model;
+import jakarta.persistence.*;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import java.util.Date;
 
 @Entity
-@Table(name = "acesso")
+@Table(
+        name = "acesso"
+)
 public class Acesso {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue(
+            strategy = GenerationType.IDENTITY
+    )
     private Long id;
-
-    @Column(name = "ip", nullable = false)
+    @Column(
+            nullable = false
+    )
     private String ip;
+    @Column(
+            nullable = false
+    )
+    private Date data_hora;
 
-    @Column(name = "data_hora", nullable = false)
-    private String dataHora;
-
+    public Acesso() {
+    }
     @ManyToOne
-    @JoinColumn(name="usuario_id", nullable = false)
+    @JoinColumn(
+            name = "usuario_id"
+    )
     private Usuario usuario;
-
-
     public Long getId() {
         return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getIp() {
         return this.ip;
     }
 
-    public void setIp(String ip) {
+    public Date getData_hora() {
+        return this.data_hora;
+    }
+
+    public void setId(final Long id) {
+        this.id = id;
+    }
+
+    public void setIp(final String ip) {
         this.ip = ip;
     }
 
-    public String getDataHora() {
-        return this.dataHora;
+    public void setData_hora(final Date data_hora) {
+        this.data_hora = data_hora;
     }
 
-    public void setDataHora(String dataHora) {
-        this.dataHora = dataHora;
-    }
-
-    public Usuario getUsuario() {
-        return this.usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-}
+   }

@@ -6,16 +6,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 import com.example.demo.Enum.Sexo;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,13 +17,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "pessoa")
 public class Pessoa {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-    @Column(name = "nome", nullable = false, length = 100, unique= false)
+    
+    @Column(name = "nome", nullable = false, length = 100, unique = false)
     private String nome;
 
     @Column(name = "ativo", nullable = false)
@@ -41,22 +32,23 @@ public class Pessoa {
 
     @Column(name = "nascimento", nullable = false)
     private LocalDate nascimento;
-    
-    @Column(name= "sexo", nullable = false)
+
+    @Column(name = "sexo", nullable = false)
     @ColumnDefault("2")
     @Enumerated(EnumType.ORDINAL)
-    private Sexo sexo = Sexo.NAO_INFORMADO;
+    private Sexo sexo = Sexo.NAO_INFOMADO;
 
     @ManyToOne
-    @JoinColumn(name= "deficiencia_id")
+    @JoinColumn(name = "deficiencia_id")
     private Deficiencia deficiencia;
 
+    @ManyToOne
+    @JoinColumn(name = "endereco_id")
+    private Endereco endereco;
 
     public Pessoa(String nome, LocalDate nascimento, Sexo sexo){
         this.nome = nome;
         this.nascimento = nascimento;
         this.sexo = sexo;
     }
-
-
 }

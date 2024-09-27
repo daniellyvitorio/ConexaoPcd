@@ -12,7 +12,6 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "endereco")
-
 public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +20,7 @@ public class Endereco {
     @Column(name = "logradouro", nullable = false)
     private String logradouro;
 
-    @Column(name= "cep", nullable = false)
+    @Column(name = "cep", nullable = false, length = 9)
     private String cep;
 
     @Column(name = "numero", nullable = true)
@@ -31,8 +30,14 @@ public class Endereco {
     private String complemento;
 
     @ManyToOne
-    @JoinColumn(name= "bairro_id")
+    @JoinColumn(name = "bairro_id")
     private Bairro bairro;
 
+    public Estado getEstado(){
+        return bairro.getCidade().getEstado();
+    }
 
+    public Cidade getCidade(){
+        return bairro.getCidade();
+    }
 }

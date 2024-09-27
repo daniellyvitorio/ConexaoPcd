@@ -15,24 +15,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name= "cidade")
-
+@Table(name = "cidade")
 public class Cidade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name= "nome", nullable = false, length = 200)
+    @Column(name = "nome", nullable = false, length = 200)
     private String nome;
 
-    @Column(name= "ativo", nullable = false)
+    @Column(name = "ativo", nullable = false)
     @ColumnDefault("true")
     private boolean ativo = true;
 
@@ -40,5 +39,3 @@ public class Cidade {
     @JoinColumn(name = "estado_id")
     private Estado estado;
 }
-
-

@@ -31,6 +31,7 @@ public class Usuario {
 
     @Column(name = "ativo",nullable = true)
     private boolean ativo;
+    
 }
 
 
