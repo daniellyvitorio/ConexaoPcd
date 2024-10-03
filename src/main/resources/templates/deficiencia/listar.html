@@ -28,18 +28,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="deficiencia: ${deficiencia}">
-                                        <td th:text="${deficiencia.id}"></td>></td>
-                                        <td th:text="${deficiencia.nome}"></td>></td>
+                                    <tr th:each="deficiencia: ${deficiencias}">
+                                        <td th:text="${deficiencia.id}"></td></td>
+                                        <td th:text="${deficiencia.nome}"></td></td>
                                         <td>
                                             <div class="btn-group">
                                                 <a class="btn btn-light" th:href="@{/deficiencia/update/{id}(id=${deficiencia.id})}"><i class="fa-solid fa-pen-ruler"></i> Alterar</a>
-                                                <a class="btn btn-light" th:href="@{/deficiencia/visualizar/{id}(id=${pessoa.id})}"><i class="fa-solid fa-magnifying-glass"></i> Visualizar</a>
-                                                <div th:if="${pessoa.ativo}">
-                                                    <a class="btn btn-light" th:href="@{/pessoa/remover/{id}(id=${pessoa.id})}"><i class="fa-solid fa-xmark"></i> Remover</a>
+                                                <a class="btn btn-light" th:href="@{/deficiencia/visualizar/{id}(id=${deficiencia.id})}"><i class="fa-solid fa-magnifying-glass"></i> Visualizar</a>
+                                                <div th:if="${deficiencia.ativo}">
+                                                    <a class="btn btn-light" th:href="@{/deficiencia/remover/{id}(id=${deficiencia.id})}"><i class="fa-solid fa-xmark"></i> Remover</a>
                                                 </div>
-                                                <div th:if="${not pessoa.ativo}">
-                                                    <a class="btn btn-light" th:href="@{/pessoa/remover/{id}(id=${pessoa.id})}"><i class="fa-solid fa-reply"></i> Recuperar</a>
+                                                <div th:if="${not deficiencia.ativo}">
+                                                    <a class="btn btn-light" th:href="@{/deficiencia/remover/{id}(id=${deficiencia.id})}"><i class="fa-solid fa-reply"></i> Recuperar</a>
                                                 </div>
                                                 
                                             </div>

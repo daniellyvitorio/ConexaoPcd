@@ -12,14 +12,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.demo.Form.Deficiencia.DeficienciaForm;
-import com.example.demo.Form.Pessoa.PessoaForm;
 import com.example.demo.Model.Categoria;
 import com.example.demo.Model.Deficiencia;
-import com.example.demo.Model.Pessoa;
+
 import com.example.demo.Repository.CategoriaRepository;
 import com.example.demo.Repository.DeficienciaRepository;
 import com.example.demo.Service.DeficienciaService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -35,7 +38,12 @@ public class DeficienciaController {
     private DeficienciaService deficienciaService;
 
     @GetMapping("/deficiencia")
-    public String index() {
+    public String index(Model model, @RequestParam("display") Optional<String> display){
+        String finalDisplay = display.orElse("true");
+
+        List<Deficiencia> deficiencias = deficienciaRepository.findByAtivo(Boolean.valueOf(finalDisplay));
+
+        model.addAttribute("deficiencias", deficiencias);
         return "deficiencia/listar";
     }
 
@@ -73,20 +81,76 @@ public class DeficienciaController {
     }
     
     
-    // @GetMapping("/deficiencia/update/{id}")
-    // public String update(@PathVariable Long id, Model model){
-    //     Optional<Deficiencia> deficiencia = deficienciaRepository.findById(id);
+    @GetMapping("/deficiencia/update/{id}")
+    public String update(@PathVariable Long id, Model model){
+        Optional<Deficiencia> deficiencia = deficienciaRepository.findById(id);
 
-    //     DeficienciaForm deficienciaForm = new DeficienciaForm(deficiencia.orElseThrow());
+         DeficienciaForm deficienciaForm = new DeficienciaForm(deficiencia.orElseThrow());
 
-    //     List<Categoria> listCategoria = categoriaRepository.findAll();
-    //     deficienciaForm.setListCategoria(listCategoria);
+         List<Categoria> listCategoria = categoriaRepository.findAll();
+         deficienciaForm.setListCategoria(listCategoria);
 
-    //     model.addAttribute("deficienciaForm", deficienciaForm);
-    //     model.addAttribute("id", deficiencia.orElseThrow().getId());
+         model.addAttribute("deficienciaForm", deficienciaForm);
+         model.addAttribute("id", deficiencia.orElseThrow().getId());
 
-    //     return "/deficiencia/update";
-    // }
+         return "/deficiencia/update";
+    }
+
+    @GetMapping("/deficiencia/visualizar/{id}")
+    public String visualizar(@PathVariable Long id, Model model){
+        Optional<Deficiencia> deficiencia = deficienciaRepository.findById(id);
+
+        DeficienciaForm deficienciaForm = new DeficienciaForm(deficiencia.get());
+
+        List<Categoria> listaCategoria = categoriaRepository.findAll();
+        deficienciaForm.setListCategoria(listaCategoria);
+
+        model.addAttribute("deficienciaForm", deficienciaForm);
+        model.addAttribute("id", deficiencia.get().getId());
+
+        return "/deficiencia/visualizar";
+    }
+
+    @PostMapping("/deficiencia/update/{id}")
+    public String update(@PathVariable Long id, @Valid DeficienciaForm deficienciaForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes){
+        List<Categoria> listaCategorias = categoriaRepository.findAll();
+        deficienciaForm.setListCategoria(listaCategorias);
+
+        model.addAttribute("deficienciaForm", deficienciaForm);
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("errors", bindingResult.getAllErrors());
+            return "/deficiencia/update";
+        }
+
+        deficienciaService.update(deficienciaForm, id);      
+
+        redirectAttributes.addFlashAttribute("successMessage", "Alterado com sucesso!");
+        return "redirect:/deficiencia";
+    }
+
+    @GetMapping("/deficiencia/remover/{id}")
+    public String remover(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        Optional<Deficiencia> deficiencia = this.deficienciaRepository.findById(id);
+        Deficiencia deficienciaModel = deficiencia.get();
+
+        if (deficienciaModel.isAtivo()) {
+            deficienciaModel.setAtivo(false);    
+            redirectAttributes.addFlashAttribute("successMessage", 
+            "Excluído com sucesso!");
+        }else{
+            deficienciaModel.setAtivo(true);
+            redirectAttributes.addFlashAttribute("successMessage", 
+            "Recuperado com sucesso!");
+        }
+        
+        this.deficienciaRepository.save(deficienciaModel);
+        
+        return "redirect:/deficiencia";        
+    }
+
+
+    
     
     
 }

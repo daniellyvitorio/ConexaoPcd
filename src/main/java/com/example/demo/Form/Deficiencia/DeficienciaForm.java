@@ -3,6 +3,7 @@ package com.example.demo.Form.Deficiencia;
 import java.util.List;
 
 import com.example.demo.Model.Categoria;
+import com.example.demo.Model.Deficiencia;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -23,6 +24,12 @@ public class DeficienciaForm {
     @NotNull(message = "Preencha o campo deficiencia")
     private Categoria categoria;
     private List<Categoria> listCategoria;
+
+    public DeficienciaForm(Deficiencia deficiencia){
+        this.nome = deficiencia.getNome();
+        this.categoria = deficiencia.getCategoria();
+
+    }
 
     
 }
