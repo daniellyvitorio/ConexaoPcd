@@ -17,6 +17,9 @@ import com.example.demo.Repository.DeficienciaRepository;
 import com.example.demo.Repository.PessoaRepository;
 import com.example.demo.Service.PessoaService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +39,12 @@ public class PessoaController {
     @Autowired
     private PessoaService pessoaService;
 
+    @Operation(description = "Buscar todas as pessoas: ")
+    @ApiResponses( value = {
+        @ApiResponse(responseCode = "200", description = "tudo certo!"),
+        @ApiResponse(responseCode = "400", description = "Não encontrado deficiencias"),
+        @ApiResponse(responseCode = "404", description = "Página não encontrada!")
+    })
     @GetMapping("/pessoa")
     public String index(Model model, @RequestParam("display") Optional<String> display){
         String finalDisplay = display.orElse("true");
@@ -47,6 +56,12 @@ public class PessoaController {
         return "pessoa/listar";
     }
 
+    @Operation(description = "Criar uma nova pessoa: ")
+    @ApiResponses( value = {
+        @ApiResponse(responseCode = "200", description = "tudo certo!"),
+        @ApiResponse(responseCode = "400", description = "Não encontrado deficiencias"),
+        @ApiResponse(responseCode = "404", description = "Página não encontrada!")
+    })
     @GetMapping("/pessoa/create")
     public String create(Model model) {
         PessoaForm pessoaForm = new PessoaForm();
@@ -59,6 +74,12 @@ public class PessoaController {
         return "pessoa/create";
     }
     
+    @Operation(description = "Ver a lista de deficiencia de cada pessoa: ")
+    @ApiResponses( value = {
+        @ApiResponse(responseCode = "200", description = "tudo certo!"),
+        @ApiResponse(responseCode = "400", description = "Não encontrado deficiencias"),
+        @ApiResponse(responseCode = "404", description = "Página não encontrada!")
+    })
     @PostMapping("/pessoa/create")
     public String create(@Valid PessoaForm pessoaForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         List<Deficiencia> listaDeficiencias = deficienciaRepository.findAll();
@@ -77,6 +98,12 @@ public class PessoaController {
         return "redirect:/pessoa";
     }
 
+    @Operation(description = "Listar pessoas pelo id: ")
+    @ApiResponses( value = {
+        @ApiResponse(responseCode = "200", description = "tudo certo!"),
+        @ApiResponse(responseCode = "400", description = "Não encontrado deficiencias"),
+        @ApiResponse(responseCode = "404", description = "Página não encontrada!")
+    })
     @GetMapping("/pessoa/update/{id}")
     public String update(@PathVariable Long id, Model model){
         Optional<Pessoa> pessoa = pessoaRepository.findById(id);
@@ -92,6 +119,12 @@ public class PessoaController {
         return "/pessoa/update";
     }
 
+    @Operation(description = "Vizualizar pessoas pelo id: ")
+    @ApiResponses( value = {
+        @ApiResponse(responseCode = "200", description = "tudo certo!"),
+        @ApiResponse(responseCode = "400", description = "Não encontrado deficiencias"),
+        @ApiResponse(responseCode = "404", description = "Página não encontrada!")
+    })
     @GetMapping("/pessoa/visualizar/{id}")
     public String visualizar(@PathVariable Long id, Model model){
         Optional<Pessoa> pessoa = pessoaRepository.findById(id);
@@ -107,6 +140,12 @@ public class PessoaController {
         return "/pessoa/visualizar";
     }
     
+    @Operation(description = "Salvar pessoas pelo id: ")
+    @ApiResponses( value = {
+        @ApiResponse(responseCode = "200", description = "tudo certo!"),
+        @ApiResponse(responseCode = "400", description = "Não encontrado deficiencias"),
+        @ApiResponse(responseCode = "404", description = "Página não encontrada!")
+    })
     @PostMapping("/pessoa/update/{id}")
     public String update(@PathVariable Long id, @Valid PessoaForm pessoaForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes){
         List<Deficiencia> listaDeficiencias = deficienciaRepository.findAll();
@@ -125,6 +164,12 @@ public class PessoaController {
         return "redirect:/pessoa";
     }
     
+    @Operation(description = "Remover pessoas: ")
+    @ApiResponses( value = {
+        @ApiResponse(responseCode = "200", description = "tudo certo!"),
+        @ApiResponse(responseCode = "400", description = "Não encontrado deficiencias"),
+        @ApiResponse(responseCode = "404", description = "Página não encontrada!")
+    })
     @GetMapping("/pessoa/remover/{id}")
     public String remover(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         Optional<Pessoa> pessoa = this.pessoaRepository.findById(id);
